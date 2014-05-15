@@ -8,6 +8,8 @@ describe "AuthenticationPages" do
 
       it { should have_content('Sign in') }
       it { should have_title('Sign in') }
+      it { should_not have_link('Profile') }
+      it { should_not have_link('Settings')}
    end
 
    describe "signin" do
@@ -83,6 +85,14 @@ describe "AuthenticationPages" do
             describe "visiting the user index" do
                before { visit users_path }
                it { should have_title('Sign in') }
+            end
+         end
+
+         describe "in the Microposts controller" do
+
+            describe "submitting to the create action" do
+               before { post microposts_path }
+               specify { expect(response).to redirect_to(signin_path) }
             end
          end
       end
